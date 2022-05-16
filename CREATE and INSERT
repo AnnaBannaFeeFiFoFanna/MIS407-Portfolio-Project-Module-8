@@ -24,24 +24,12 @@ CustPhone char(14) NOT NULL,
 CONSTRAINT PKCustomer PRIMARY KEY (CustomerID)
 );
 
-INSERT INTO Customer VALUES ('8703404376', 'Stewart', 'Rebecca', 'A', '2023', 'Drummond Crescent', NULL, 'Fort Worth', 'TX', '76114-4436', '1992-01-04', '(817)-789-1234');
-INSERT INTO Customer VALUES ('6502346610', 'Harrison', 'Khadija', 'V', '7866', 'Berwyn Avenue', NULL, 'Fort Worth', 'TX', '76132-1059', '1961-02-03', '(512)-847-9322');
-INSERT INTO Customer VALUES ('1224846924', 'Harmon', 'Chantelle', 'O', '7013', 'Gladiator Way', NULL, 'River Oaks', 'TX', '76114-3007', '1986-09-06', '(817)-318-1665');
-INSERT INTO Customer VALUES ('0334922215', 'Oliver', 'Laura', 'V', '7223', 'Purton Road', '267', 'Fort Worth', 'TX', '76114-4436', '1971-06-03', '(214)-697-1876');
-INSERT INTO Customer VALUES ('0564020376', 'Glover', 'Milly', 'M', '2984', 'Castle Hill Drive', NULL, 'Westworth Village', 'TX', '76114-4239', '1953-04-05', '(817)-583-8780');
-
 CREATE TABLE Employee (
 EmployeeNo char(4),
 FirstName varchar(50) NOT NULL,
 LastName varchar(50) NOT NULL,
 CONSTRAINT PKEmployee PRIMARY KEY (EmployeeNo)
 );
-
-INSERT INTO Employee VALUES ('5810', 'Keira', 'Duran');
-INSERT INTO Employee VALUES ('6613', 'Bonnie', 'Ortiz');
-INSERT INTO Employee VALUES ('1550', 'Tabitha', 'Gardner');
-INSERT INTO Employee VALUES ('8869', 'Katherine', 'Pacheco');
-INSERT INTO Employee VALUES ('3542', 'Josie', 'Sutton');
 
 CREATE TABLE CustomerTransaction (
 CustTransID char(12),
@@ -52,12 +40,6 @@ CONSTRAINT PKCustomerTransaction PRIMARY KEY (CustTransID),
 CONSTRAINT FKCustomerID FOREIGN KEY (CustomerID) REFERENCES Customer ON DELETE CASCADE,
 CONSTRAINT FKEmployeeNo FOREIGN KEY (EmployeeNo) REFERENCES Employee
 );
-
-INSERT INTO CustomerTransaction VALUES ('223533237391', '2022-04-15 18:30:57', '8703404376', '5810');
-INSERT INTO CustomerTransaction VALUES ('510863349555', '2022-04-16 03:25:24', '6502346610', '6613');
-INSERT INTO CustomerTransaction VALUES ('653669779757', '2022-04-17 16:44:41', '1224846924', '1550');
-INSERT INTO CustomerTransaction VALUES ('887570952125', '2022-04-18 06:35:32', '0334922215', '8869');
-INSERT INTO CustomerTransaction VALUES ('904457542721', '2022-05-01 13:57:40', '0564020376', '3542');
 
 CREATE TABLE Distributor (
 DistributorID char(10),
@@ -71,12 +53,6 @@ DistZipCode char(10),
 DistPhone char(14),
 CONSTRAINT PKDistributor PRIMARY KEY (DistributorID)
 );
-
-INSERT INTO Distributor VALUES ('3489680964', 'Universal Pictures Home Entertainment', '100', 'Universal City Plaza', 'City Plaza Building 1440/7', 'Universal City', 'CA', '91608-1002', '(818)-777-1000');
-INSERT INTO Distributor VALUES ('8383359276', '20th Century Studios', '2121', 'Avenue of the Stars', '100', 'Beverly Hills', 'CA', '90067-5010', '(888)-223-4369');
-INSERT INTO Distributor VALUES ('7016854733', 'Warner Home Video', '4000', 'Warner Boulevard', NULL, 'Burbank', 'CA', '91522-0001', '(888)-227-6863');
-INSERT INTO Distributor VALUES ('1989101273', 'Sony Pictures', '3933', 'Madison Ave', NULL, 'Culver City', 'CA', '90232-2708', '(818)-753-3470');
-INSERT INTO Distributor VALUES ('1780471861', 'Paramount Home Entertainment', '5555', 'Melrose Ave', NULL, 'Los Angeles', 'CA', '90038-3989', '(323)-956-8864');
 
 CREATE TABLE MovieInfo (
 MovieID char(12),
@@ -96,12 +72,6 @@ CONSTRAINT PKMovieInfo PRIMARY KEY (MovieID),
 CONSTRAINT FKDistributorID FOREIGN KEY (DistributorID) REFERENCES Distributor
 );
 
-INSERT INTO MovieInfo VALUES ('790406948210', 'Death Becomes Her', 'DVD', 'Robert Zemeckis', 'Meryl Streep, Bruce Willis, Goldie Hawn, Isabella Rossellini', 'Comedy, Fantasy, Horror', 'PG-13', '1992', 'English', 'Spanish', '104', NULL, '3489680964');
-INSERT INTO MovieInfo VALUES ('951790070559', 'The Garbage Pail Kids Movie', 'DVD', 'Rod Amateau', NULL, 'Adventure, Comedy, Family, Fantasy, Musical', 'PG', '1987', 'English', NULL, '100', NULL, '8383359276');
-INSERT INTO MovieInfo VALUES ('301696147002', 'Pee-wee''s Big Adventure', 'DVD', 'Tim Burton', 'Paul Reubens', 'Adventure, Comedy, Family', 'PG', '1985', 'English', 'French, Spanish', '91', NULL, '7016854733');
-INSERT INTO MovieInfo VALUES ('697835260978', 'The Muppets Take Manhattan', 'DVD', 'Frank Oz', 'Jim Henson, Frank Oz', 'Adventure, Comedy, Drama, Family, Musical, Romance', 'G', '1984', 'English', 'French, Spanish', '94', NULL, '1989101273');
-INSERT INTO MovieInfo VALUES ('716322509358', 'Sunset Boulevard', 'DVD', 'Billy Wilder', 'William Holden, Gloria Swanson, Erich von Stroheim', 'Drama, Film-Noir', NULL, '1950', 'English', 'French, Spanish', '110', NULL, '1780471861');
-
 CREATE TABLE CustTransDetail (
 TransactionType char(6),
 RentalDate date,
@@ -118,23 +88,11 @@ CONSTRAINT FKMovieID FOREIGN KEY (MovieID) REFERENCES MovieInfo,
 CONSTRAINT FKCustTransID FOREIGN KEY (CustTransID) REFERENCES CustomerTransaction ON DELETE CASCADE
 );
 
-INSERT INTO CustTransDetail VALUES ('Return', '2022-04-15', '2022-04-25', '0.74', '5.00', '9.00', NULL, NULL, NULL, '790406948210', '223533237391');
-INSERT INTO CustTransDetail VALUES ('Return', '2022-04-16', '2022-04-23', NULL, '5.00', NULL, NULL, NULL, NULL, '951790070559', '510863349555');
-INSERT INTO CustTransDetail VALUES ('Return', '2022-04-17', '2022-04-24', NULL, '5.00', NULL, NULL, NULL, NULL, '301696147002', '653669779757');
-INSERT INTO CustTransDetail VALUES ('Return', '2022-04-18', '2022-04-25', '2.06', '5.00', NULL, '25.00', NULL, NULL, '697835260978', '887570952125');
-INSERT INTO CustTransDetail VALUES ('Return', '2022-05-01', '2022-05-08', '.41', '5.00', NULL, NULL, '5.00', NULL, '716322509358', '904457542721');
-
 CREATE TABLE InventoryPurchaseOrder (
 POtransID char(10),
 InvPurchDate date,
 CONSTRAINT PKPOtransID PRIMARY KEY (POtransID)
 );
-
-INSERT INTO InventoryPurchaseOrder VALUES ('2181215126', '2000-05-12');
-INSERT INTO InventoryPurchaseOrder VALUES ('9101540967', '2002-02-01');
-INSERT INTO InventoryPurchaseOrder VALUES ('1223182871', '2012-09-15');
-INSERT INTO InventoryPurchaseOrder VALUES ('8221688874', '2015-12-18');
-INSERT INTO InventoryPurchaseOrder VALUES ('4043740412', '2016-06-28');
 
 CREATE TABLE InventoryPODetail (
 DistTitleSerial char(12),
@@ -147,12 +105,6 @@ CONSTRAINT PKDistTitleSerial PRIMARY KEY (DistTitleSerial),
 CONSTRAINT FKPOtransID FOREIGN KEY (POtransID) REFERENCES InventoryPurchaseOrder
 );
 
-INSERT INTO InventoryPODetail VALUES ('985131037538', '1990', '25.00', '1', '.80', '2181215126');
-INSERT INTO InventoryPODetail VALUES ('417688319036', '2001', '12.95', '1', '.90', '9101540967');
-INSERT INTO InventoryPODetail VALUES ('677704362955', '1997', '14.95', '2', '.85', '1223182871');
-INSERT INTO InventoryPODetail VALUES ('611307149478', '2010', '9.95', '10', NULL, '8221688874');
-INSERT INTO InventoryPODetail VALUES ('295054367712', '2005', '11.99', '5', '.95', '4043740412');
-
 CREATE TABLE Movie (
 OwnerMovieID char(10),
 MovieID char(12),
@@ -164,11 +116,53 @@ CONSTRAINT FKDistributorID FOREIGN KEY (DistributorID) REFERENCES Distributor,
 CONSTRAINT FKDistTitleSerial FOREIGN KEY (DistTitleSerial) REFERENCES InventoryPODetail
 );
 
-INSERT INTO Movie VALUES ('7207866628', '790406948210', '3489680964', '985131037538');
-INSERT INTO Movie VALUES ('2352961870', '951790070559', '8383359276', '417688319036');
-INSERT INTO Movie VALUES ('6505762084', '301696147002', '7016854733', '677704362955');
-INSERT INTO Movie VALUES ('4276865598', '697835260978', '1989101273', '611307149478');
-INSERT INTO Movie VALUES ('5333597523', '716322509358', '1780471861', '295054367712');
+INSERT INTO Customer VALUES ('8703404376', 'Stewart', 'Rebecca', 'A', '2023', 'Drummond Crescent', NULL, 'Fort Worth', 'TX', '76114-4436', '1992-01-04', '(817)-789-1234');
+INSERT INTO Customer VALUES ('6502346610', 'Harrison', 'Khadija', 'V', '7866', 'Berwyn Avenue', NULL, 'Fort Worth', 'TX', '76132-1059', '1961-02-03', '(512)-847-9322');
+INSERT INTO Customer VALUES ('1224846924', 'Harmon', 'Chantelle', 'O', '7013', 'Gladiator Way', NULL, 'River Oaks', 'TX', '76114-3007', '1986-09-06', '(817)-318-1665');
+INSERT INTO Customer VALUES ('0334922215', 'Oliver', 'Laura', 'V', '7223', 'Purton Road', '267', 'Fort Worth', 'TX', '76114-4436', '1971-06-03', '(214)-697-1876');
+INSERT INTO Customer VALUES ('0564020376', 'Glover', 'Milly', 'M', '2984', 'Castle Hill Drive', NULL, 'Westworth Village', 'TX', '76114-4239', '1953-04-05', '(817)-583-8780');
+
+INSERT INTO Employee VALUES ('5810', 'Keira', 'Duran');
+INSERT INTO Employee VALUES ('6613', 'Bonnie', 'Ortiz');
+INSERT INTO Employee VALUES ('1550', 'Tabitha', 'Gardner');
+INSERT INTO Employee VALUES ('8869', 'Katherine', 'Pacheco');
+INSERT INTO Employee VALUES ('3542', 'Josie', 'Sutton');
+
+INSERT INTO CustomerTransaction VALUES ('223533237391', '2022-04-15 18:30:57', '8703404376', '5810');
+INSERT INTO CustomerTransaction VALUES ('510863349555', '2022-04-16 03:25:24', '6502346610', '6613');
+INSERT INTO CustomerTransaction VALUES ('653669779757', '2022-04-17 16:44:41', '1224846924', '1550');
+INSERT INTO CustomerTransaction VALUES ('887570952125', '2022-04-18 06:35:32', '0334922215', '8869');
+INSERT INTO CustomerTransaction VALUES ('904457542721', '2022-05-01 13:57:40', '0564020376', '3542');
+
+INSERT INTO Distributor VALUES ('3489680964', 'Universal Pictures Home Entertainment', '100', 'Universal City Plaza', 'City Plaza Building 1440/7', 'Universal City', 'CA', '91608-1002', '(818)-777-1000');
+INSERT INTO Distributor VALUES ('8383359276', '20th Century Studios', '2121', 'Avenue of the Stars', '100', 'Beverly Hills', 'CA', '90067-5010', '(888)-223-4369');
+INSERT INTO Distributor VALUES ('7016854733', 'Warner Home Video', '4000', 'Warner Boulevard', NULL, 'Burbank', 'CA', '91522-0001', '(888)-227-6863');
+INSERT INTO Distributor VALUES ('1989101273', 'Sony Pictures', '3933', 'Madison Ave', NULL, 'Culver City', 'CA', '90232-2708', '(818)-753-3470');
+INSERT INTO Distributor VALUES ('1780471861', 'Paramount Home Entertainment', '5555', 'Melrose Ave', NULL, 'Los Angeles', 'CA', '90038-3989', '(323)-956-8864');
+
+INSERT INTO MovieInfo VALUES ('790406948210', 'Death Becomes Her', 'DVD', 'Robert Zemeckis', 'Meryl Streep, Bruce Willis, Goldie Hawn, Isabella Rossellini', 'Comedy, Fantasy, Horror', 'PG-13', '1992', 'English', 'Spanish', '104', NULL, '3489680964');
+INSERT INTO MovieInfo VALUES ('951790070559', 'The Garbage Pail Kids Movie', 'DVD', 'Rod Amateau', NULL, 'Adventure, Comedy, Family, Fantasy, Musical', 'PG', '1987', 'English', NULL, '100', NULL, '8383359276');
+INSERT INTO MovieInfo VALUES ('301696147002', 'Pee-wee''s Big Adventure', 'DVD', 'Tim Burton', 'Paul Reubens', 'Adventure, Comedy, Family', 'PG', '1985', 'English', 'French, Spanish', '91', NULL, '7016854733');
+INSERT INTO MovieInfo VALUES ('697835260978', 'The Muppets Take Manhattan', 'DVD', 'Frank Oz', 'Jim Henson, Frank Oz', 'Adventure, Comedy, Drama, Family, Musical, Romance', 'G', '1984', 'English', 'French, Spanish', '94', NULL, '1989101273');
+INSERT INTO MovieInfo VALUES ('716322509358', 'Sunset Boulevard', 'DVD', 'Billy Wilder', 'William Holden, Gloria Swanson, Erich von Stroheim', 'Drama, Film-Noir', NULL, '1950', 'English', 'French, Spanish', '110', NULL, '1780471861');
+
+INSERT INTO CustTransDetail VALUES ('Return', '2022-04-15', '2022-04-25', '0.74', '5.00', '9.00', NULL, NULL, NULL, '790406948210', '223533237391');
+INSERT INTO CustTransDetail VALUES ('Return', '2022-04-16', '2022-04-23', NULL, '5.00', NULL, NULL, NULL, NULL, '951790070559', '510863349555');
+INSERT INTO CustTransDetail VALUES ('Return', '2022-04-17', '2022-04-24', NULL, '5.00', NULL, NULL, NULL, NULL, '301696147002', '653669779757');
+INSERT INTO CustTransDetail VALUES ('Return', '2022-04-18', '2022-04-25', '2.06', '5.00', NULL, '25.00', NULL, NULL, '697835260978', '887570952125');
+INSERT INTO CustTransDetail VALUES ('Return', '2022-05-01', '2022-05-08', '.41', '5.00', NULL, NULL, '5.00', NULL, '716322509358', '904457542721');
+
+INSERT INTO InventoryPurchaseOrder VALUES ('2181215126', '2000-05-12');
+INSERT INTO InventoryPurchaseOrder VALUES ('9101540967', '2002-02-01');
+INSERT INTO InventoryPurchaseOrder VALUES ('1223182871', '2012-09-15');
+INSERT INTO InventoryPurchaseOrder VALUES ('8221688874', '2015-12-18');
+INSERT INTO InventoryPurchaseOrder VALUES ('4043740412', '2016-06-28');
+
+INSERT INTO InventoryPODetail VALUES ('985131037538', '1990', '25.00', '1', '.80', '2181215126');
+INSERT INTO InventoryPODetail VALUES ('417688319036', '2001', '12.95', '1', '.90', '9101540967');
+INSERT INTO InventoryPODetail VALUES ('677704362955', '1997', '14.95', '2', '.85', '1223182871');
+INSERT INTO InventoryPODetail VALUES ('611307149478', '2010', '9.95', '10', NULL, '8221688874');
+INSERT INTO InventoryPODetail VALUES ('295054367712', '2005', '11.99', '5', '.95', '4043740412');
 
 Select CustFirstName, CustLastName, CustomerID, CustAddStreetName, CustZipCode
 From Customer
@@ -177,6 +171,7 @@ ORDER BY CustomerID;
 Select MovieInfo.MovieID, MovieInfo.MovieTitle, CustTransDetail.RentalDate
 FROM MovieInfo
 JOIN CustTransDetail ON MovieInfo.MovieID = CustTransDetail.MovieID
+WHERE MovieInfo.Format = 'DVD'
 ORDER BY CustTransDetail.RentalDate ASC;
 
 UPDATE Customer
